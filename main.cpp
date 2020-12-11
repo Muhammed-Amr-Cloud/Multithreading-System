@@ -82,10 +82,10 @@ public:
 
 class CountWithValue:public Actor{
 
+protected:
 	unsigned int incrementField ;
 
 public:
-
 
 	CountWithValue(string _actorname = "unKnown", unsigned int _incount = 0,unsigned int incrementValue = 1):Actor(_actorname,_incount)
 	{
@@ -94,17 +94,79 @@ public:
 	}
 
 	void decrease()
-		{
+	{
+		count-= incrementField;
+	}
 
-			count-= incrementField;
-		}
-
-		void increase()
-		{
-
-		   count+= incrementField;
-		}
+	void increase()
+	{
+	    count+= incrementField;
+	}
 };
+
+
+
+class AutoIncrease:public CountWithValue{
+
+
+	unsigned int autoIncrease;
+
+public:
+
+	void increase()
+		{
+		  count += incrementField;
+		}
+
+
+	AutoIncrease(string _actorname = "unKnown",
+			unsigned int _incount = 0,
+			unsigned int incrementValue = 1,
+			unsigned int _autoIncrease = 1):CountWithValue(_actorname,_incount,incrementValue)
+	{
+
+		autoIncrease = _autoIncrease;
+
+		for(unsigned int i = 0 ; i < autoIncrease ; i++)
+		{
+			increase();
+		}
+
+	}
+
+};
+
+
+class AutoDecrease:public CountWithValue{
+
+
+	unsigned int autoDecrease;
+
+public:
+
+	void decrease()
+		{
+		  count += incrementField;
+		}
+
+
+	AutoDecrease(string _actorname = "unKnown",
+			unsigned int _incount = 0,
+			unsigned int incrementValue = 1,
+			unsigned int _autoDecrease = 1):CountWithValue(_actorname,_incount,incrementValue)
+	{
+
+		autoDecrease = _autoDecrease;
+
+		for(unsigned int i = 0 ; i < autoDecrease ; i++)
+		{
+			decrease();
+		}
+
+	}
+
+};
+
 
 
 
@@ -118,6 +180,8 @@ int main()
 
 	DefaultCount   D("mohamed",0);
 	CountWithValue V("mohamed",0,3);
+	AutoIncrease   A ("mohamed",0,3,6);
+
 
 	cout<<D.getCount()<<" ";
 	D.increase();
@@ -125,7 +189,12 @@ int main()
 
 	cout<<V.getCount()<<" ";
 	V.increase();
+	cout<<V.getCount()<<" ";
+	V.decrease();
 	cout<<V.getCount()<<" "<<endl;
+
+	//A.increase();
+	cout<<A.getCount();
 
     return 0;
 }
