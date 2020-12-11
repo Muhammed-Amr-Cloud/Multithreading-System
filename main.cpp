@@ -82,10 +82,28 @@ public:
 
 class CountWithValue:public Actor{
 
+	unsigned int incrementField ;
+
+public:
 
 
+	CountWithValue(string _actorname = "unKnown", unsigned int _incount = 0,unsigned int incrementValue = 1):Actor(_actorname,_incount)
+	{
 
+		incrementField = incrementValue;
+	}
 
+	void decrease()
+		{
+
+			count-= incrementField;
+		}
+
+		void increase()
+		{
+
+		   count+= incrementField;
+		}
 };
 
 
@@ -98,13 +116,16 @@ class CountWithValue:public Actor{
 int main()
 {
 
-	DefaultCount D("mohamed",0);
+	DefaultCount   D("mohamed",0);
+	CountWithValue V("mohamed",0,3);
 
-	cout<<D.getCount();
-
+	cout<<D.getCount()<<" ";
 	D.increase();
+	cout<<D.getCount()<<" "<<endl;
 
-	cout<<D.getCount();
+	cout<<V.getCount()<<" ";
+	V.increase();
+	cout<<V.getCount()<<" "<<endl;
 
     return 0;
 }
