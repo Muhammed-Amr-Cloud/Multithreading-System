@@ -12,8 +12,10 @@ using namespace std;
 /* Abstract Class */
 class Actor
 {
+
+protected:
 	string		   name ;
-	unsigned char count ;
+	unsigned int count ;
 
 
 public:
@@ -25,14 +27,14 @@ public:
 	}
 
 	/*Overriding*/
-	Actor(string _name ,unsigned char _count )
+	Actor(string _name ,unsigned int _count )
 	{
 		name =   _name;
 		count = _count;
 	}
 
 	/*Destructor */
-	~Actor(){
+	virtual ~Actor(){
 		// Do nothing
 	}
 
@@ -40,11 +42,51 @@ public:
 	virtual void decrease () = 0  ;
 	virtual void increase ()  = 0 ;
 
+
+
+	/*setters and Getters*/
+
+	unsigned int getCount (){
+
+		return count;
+	}
+
+	void setCount(unsigned int value){
+
+		count = value;
+	}
+
 };
 
 
+class DefaultCount:public Actor{
+
+public:
+	/*constructor*/
+	DefaultCount(string _actorname = "unKnown", unsigned int _incount = 0):Actor(_actorname,_incount){}
 
 
+	void decrease()
+	{
+
+		count--;
+	}
+
+	void increase()
+	{
+
+	   count++;
+	}
+
+};
+
+class CountWithValue:public Actor{
+
+
+
+
+
+};
 
 
 
@@ -56,7 +98,13 @@ public:
 int main()
 {
 
+	DefaultCount D("mohamed",0);
 
+	cout<<D.getCount();
+
+	D.increase();
+
+	cout<<D.getCount();
 
     return 0;
 }
